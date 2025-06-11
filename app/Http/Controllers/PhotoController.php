@@ -13,14 +13,36 @@ class PhotoController extends Controller
     // 🖼️ Menampilkan galeri foto
     public function index(Request $request)
     {
-        $categories = Category::all();
-        $query = Photo::latest();
+        $query = Photo::with('category');
 
-        if ($request->filled('category')) {
+        // Search
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Category Filter
+        if ($request->has('category')) {
             $query->where('category_id', $request->category);
         }
 
-        $photos = $query->get();
+        // Sorting
+        switch ($request->sort) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title':
+                $query->orderBy('title', 'asc');
+                break;
+            default:
+                $query->latest();
+        }
+
+        $photos = $query->paginate(12)->withQueryString();
+        $categories = Category::withCount('photos')->get();
 
         return view('photos.index', compact('photos', 'categories'));
     }

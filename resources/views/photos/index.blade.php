@@ -116,11 +116,8 @@
                 @foreach($photos as $index => $photo)
                     <div class="col-lg-4 col-md-6 photo-item" data-aos="fade-up" data-aos-delay="{{ ($index % 6) * 100 }}">
                         <div class="photo-card card-modern">
-                            <div class="position-relative">
-                                <img src="{{ asset('storage/' . $photo->image_path) }}"
-                                     class="w-100"
-                                     alt="{{ $photo->title }}"
-                                     loading="lazy">
+                            <div class="photo-card-img position-relative">
+                                <img src="{{ asset('storage/' . $photo->image_path) }}" alt="{{ $photo->title }}" style="display:block;">
 
                                 <!-- Overlay dengan informasi -->
                                 <div class="photo-overlay">
@@ -185,7 +182,7 @@
                             <div class="col-md-4">
                                 <img src="{{ asset('storage/' . $photo->image_path) }}"
                                      class="img-fluid rounded-start h-100"
-                                     style="object-fit: cover;"
+                                     style="height: 220px !important; object-fit: cover !important; border-radius: 15px !important;"
                                      alt="{{ $photo->title }}">
                             </div>
                             <div class="col-md-8">
