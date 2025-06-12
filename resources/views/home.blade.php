@@ -16,20 +16,7 @@
                     Platform berbagi foto profesional untuk fotografer dan pecinta seni visual.
                     Bagikan karya terbaikmu dan temukan inspirasi dari fotografer lainnya.
                 </p>
-                @guest
-                    <div class="d-flex gap-3">
-                        <a href="{{ route('login') }}" class="btn btn-light btn-lg px-4">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
-                        </a>
-                        <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg px-4">
-                            <i class="bi bi-person-plus me-2"></i>Register
-                        </a>
-                    </div>
-                @else
-                    <a href="{{ route('photos.create') }}" class="btn btn-light btn-lg px-4">
-                        <i class="bi bi-cloud-upload me-2"></i>Upload Foto
-                    </a>
-                @endguest
+
             </div>
             <div class="col-lg-6 position-relative">
                 <!-- Floating Image Grid -->
