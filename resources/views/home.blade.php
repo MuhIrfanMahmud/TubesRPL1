@@ -21,7 +21,7 @@
             <div class="col-lg-6 position-relative">
                 <!-- Floating Image Grid -->
                 <div class="floating-images">
-                    @foreach($photos->take(4) as $photo)
+                    @foreach($photos->take(3) as $photo)
                     <div class="floating-image-item shadow-lg">
                         @if($photo->image_path)
                             <img src="{{ asset('storage/' . $photo->image_path) }}" alt="{{ $photo->title }}"
