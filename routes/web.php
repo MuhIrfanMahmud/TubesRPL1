@@ -12,6 +12,11 @@ use App\Http\Controllers\Auth\NewPasswordController;
 // Beranda (Halaman Utama)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Halaman Tentang
+Route::get('/about', function () {
+    return view('tentang.about');
+})->name('about');
+
 // Auth Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

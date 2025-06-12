@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">
+                    <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="{{ route('about') }}">
                         <i class="bi bi-info-circle me-1"></i> Tentang
                     </a>
                 </li>

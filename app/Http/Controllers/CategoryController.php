@@ -29,23 +29,29 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name'
+        ]);
+
         Category::create($request->only('name'));
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        // Jika diperlukan nanti
+        return view('categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
         return view('categories.edit', compact('category'));
     }
@@ -53,21 +59,26 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-    $request->validate(['name' => 'required']);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id
+        ]);
 
-    $category = Category::findOrFail($id); 
-    $category->update($request->only('name'));
+        $category->update($request->only('name'));
 
-    return redirect()->route('categories.index')->with('success', 'Kategori diperbarui.');
+        return redirect()->route('categories.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    public function destroy(string $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Category $category)
     {
-    $category = Category::findOrFail($id); 
-    $category->delete();
+        $category->delete();
 
-    return back()->with('success', 'Kategori dihapus.');
+        return redirect()->route('categories.index')
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }
